@@ -1,0 +1,102 @@
+.settings-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 1080px;
+}
+
+.settings-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.settings-block h2 {
+  color: var(--txt-strong);
+  font-size: 16px;
+  margin: 0 0 var(--space-1);
+}
+
+.settings-head {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.year-field {
+  max-width: 120px;
+}
+
+.setting-list,
+.holiday-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.setting-row,
+.holiday-row,
+.holiday-create {
+  align-items: center;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-btn);
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-3);
+}
+
+.setting-row {
+  grid-template-columns: minmax(240px, 1.2fr) minmax(120px, 220px) auto;
+}
+
+.setting-row div {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.setting-row strong,
+.holiday-row strong {
+  color: var(--txt-strong);
+}
+
+.setting-row span,
+.holiday-row span {
+  color: var(--txt-dim);
+  overflow-wrap: anywhere;
+}
+
+.holiday-create,
+.holiday-row {
+  grid-template-columns: 150px minmax(220px, 1fr) 160px auto;
+}
+
+.holiday-row.editing {
+  grid-template-columns: 150px minmax(220px, 1fr) 160px auto auto;
+}
+
+.holiday-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  justify-content: flex-end;
+}
+
+@media (max-width: 760px) {
+  .settings-head {
+    flex-direction: column;
+  }
+
+  .setting-row,
+  .holiday-create,
+  .holiday-row,
+  .holiday-row.editing {
+    grid-template-columns: 1fr;
+  }
+
+  .holiday-actions {
+    justify-content: flex-start;
+  }
+}

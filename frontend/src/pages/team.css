@@ -1,0 +1,50 @@
+.team-panel {
+  padding: 0;
+  overflow: hidden;
+}
+.team-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.team-table th,
+.team-table td {
+  text-align: left;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--line);
+}
+.team-table th {
+  font-size: var(--fs-meta);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--txt-faint);
+  background: var(--panel);
+}
+.team-table tr:last-child td {
+  border-bottom: none;
+}
+.team-name {
+  font-weight: var(--fw-bold);
+  color: var(--txt-strong);
+}
+.role-badge {
+  display: inline-block;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--warn-bg);
+  color: var(--accent);
+  font-size: var(--fs-meta);
+  font-weight: var(--fw-bold);
+}
+
+/* Utilization heatmap cells. */
+.util-cell {
+  min-width: 34px;
+  padding: 6px 2px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--txt-dim);
+}
+.util-cell-off { background: var(--panel); }
+.util-cell-some { background: rgba(5, 150, 105, 0.12); }
+.util-cell-full { background: rgba(5, 150, 105, 0.3); color: var(--txt-strong); font-weight: 700; }
+.util-cell-over { background: rgba(217, 119, 6, 0.32); color: var(--txt-strong); font-weight: 700; }

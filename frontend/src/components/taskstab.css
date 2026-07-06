@@ -1,0 +1,135 @@
+.tasks-tab {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.tasks-toolbar,
+.tasks-create {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.tasks-create {
+  align-items: center;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  padding: var(--space-3);
+}
+
+.task-title-field {
+  min-width: 220px;
+  flex: 1;
+}
+
+.tasks-create .form-error {
+  width: 100%;
+}
+
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.task-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  padding: var(--space-3);
+}
+
+.task-card.editing {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.task-card-main {
+  align-items: center;
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: minmax(240px, 1.5fr) minmax(120px, .7fr) minmax(150px, .7fr) auto;
+}
+
+.task-card-main strong {
+  color: var(--txt-strong);
+}
+
+.task-meta {
+  align-items: center;
+  color: var(--txt-faint);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: var(--fs-meta);
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+.task-assignee {
+  color: var(--txt-dim);
+  font-weight: var(--fw-emphasis);
+}
+
+.state-tag {
+  font-size: var(--fs-meta);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--warn-bg);
+  color: var(--accent);
+  border: 1px solid var(--line);
+}
+
+.status-select {
+  background: var(--field);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-btn);
+  padding: 4px var(--space-2);
+  font-weight: var(--fw-emphasis);
+  font-family: inherit;
+}
+
+.task-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  justify-content: flex-end;
+}
+
+.task-detail {
+  border-top: 1px solid var(--line);
+  color: var(--txt-dim);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  line-height: 1.55;
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+}
+
+.link-btn {
+  background: transparent;
+  border: none;
+  color: var(--accent);
+  font-weight: var(--fw-emphasis);
+  cursor: pointer;
+  font-family: inherit;
+  padding: var(--space-2);
+}
+
+.link-btn:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 920px) {
+  .task-card-main {
+    grid-template-columns: 1fr;
+  }
+
+  .task-card-actions {
+    justify-content: flex-start;
+  }
+}

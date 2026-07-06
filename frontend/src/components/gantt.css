@@ -1,0 +1,268 @@
+/* Real Gantt — frozen label column + scrollable timeline + legend. */
+.gc {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  grid-template-rows: auto auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--card);
+}
+
+/* --- frozen task label column --- */
+.gc-labels {
+  grid-column: 1;
+  grid-row: 1;
+  border-right: 1px solid var(--line);
+  background: var(--panel);
+}
+.gc-labels-head {
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-3);
+  font-size: var(--fs-meta);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--txt-faint);
+  border-bottom: 1px solid var(--line);
+}
+.gc-row-label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1px;
+  padding: 0 var(--space-3);
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+.gc-row-label--phase {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  background: var(--field);
+}
+.gc-rl-phase-name {
+  min-width: 0;
+  font-size: 12px;
+  font-weight: var(--fw-bold);
+  color: var(--txt-strong);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.gc-rl-phase-meta {
+  flex-shrink: 0;
+  font-size: 10px;
+  color: var(--txt-faint);
+}
+.gc-rl-task {
+  font-size: 13px;
+  font-weight: var(--fw-emphasis);
+  color: var(--txt-strong);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.gc-rl-ms {
+  color: var(--accent-2);
+  margin-right: 4px;
+}
+.gc-rl-meta {
+  font-size: 10px;
+  color: var(--txt-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --- scrollable timeline --- */
+.gc-scroll {
+  position: relative; /* anchors the hover tooltip */
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.gc-svg {
+  display: block;
+}
+
+.gc-weekend {
+  fill: var(--line);
+  opacity: 0.35;
+}
+.gc-grid-line {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+.gc-grid-strong {
+  stroke: var(--line);
+  stroke-width: 1.5;
+}
+.gc-row-sep {
+  stroke: var(--line);
+  opacity: 0.5;
+}
+.gc-month-label {
+  fill: var(--txt-dim);
+  font-size: 11px;
+  font-weight: var(--fw-bold);
+}
+.gc-year-label {
+  fill: var(--txt-strong);
+  font-size: 11px;
+  font-weight: var(--fw-bold);
+}
+.gc-today {
+  stroke: var(--danger);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+}
+.gc-today-label {
+  fill: var(--danger);
+  font-size: 10px;
+  font-weight: var(--fw-bold);
+}
+
+.gc-bar {
+  fill: var(--accent);
+  opacity: 0.3;
+}
+.gc-bar.mile {
+  fill: var(--accent-2);
+  opacity: 0.32;
+}
+.gc-progress {
+  fill: var(--ok);
+  opacity: 0.9;
+}
+.gc-diamond {
+  fill: var(--accent-2);
+}
+.gc-bar-text {
+  fill: var(--txt-dim);
+  font-size: 11px;
+}
+.gc-undated {
+  fill: var(--txt-faint);
+  font-size: 11px;
+  font-style: italic;
+}
+.gc-dep {
+  fill: none;
+  stroke: var(--txt-faint);
+  stroke-width: 1.3;
+}
+.gc-dep-lag {
+  fill: var(--warn);
+  font-size: 10px;
+  font-weight: var(--fw-bold);
+}
+.gc-arrow {
+  fill: var(--txt-faint);
+}
+
+/* phase summary bar */
+.gc-phase-bar {
+  fill: var(--txt-faint);
+  opacity: 0.5;
+}
+.gc-phase-progress {
+  fill: var(--ok);
+}
+
+/* hover tooltip */
+.gc-tooltip {
+  position: absolute;
+  z-index: 10;
+  max-width: 280px;
+  padding: var(--space-2) var(--space-3);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-btn);
+  box-shadow: var(--shadow-card);
+  pointer-events: none;
+  font-size: 11px;
+  color: var(--txt-dim);
+}
+.gc-tt-title {
+  font-size: 12px;
+  font-weight: var(--fw-bold);
+  color: var(--txt-strong);
+}
+.gc-tt-line {
+  margin-top: 2px;
+  overflow-wrap: anywhere;
+}
+
+/* --- legend --- */
+.gc-legend {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  padding: var(--space-2) var(--space-3);
+  border-top: 1px solid var(--line);
+  background: var(--panel);
+  font-size: var(--fs-meta);
+  color: var(--txt-dim);
+}
+.gc-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.gc-lg {
+  display: inline-block;
+  width: 14px;
+  height: 10px;
+  border-radius: 3px;
+}
+.gc-lg-phase {
+  height: 4px;
+  background: var(--txt-faint);
+  opacity: 0.6;
+}
+.gc-lg-bar {
+  background: var(--accent);
+  opacity: 0.35;
+}
+.gc-lg-prog {
+  background: var(--ok);
+}
+.gc-lg-mile {
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  background: var(--accent-2);
+  transform: rotate(45deg);
+}
+.gc-lg-today {
+  width: 3px;
+  height: 14px;
+  background: var(--danger);
+  border-radius: 0;
+}
+.gc-lg-dep {
+  width: 16px;
+  height: 2px;
+  background: var(--txt-faint);
+}
+
+@media (max-width: 639px) {
+  .gc-row-label {
+    padding-inline: 8px;
+  }
+
+  .gc-rl-meta {
+    display: none;
+  }
+
+  .gc-legend {
+    gap: 8px 12px;
+    padding: 10px;
+  }
+}

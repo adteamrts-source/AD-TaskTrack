@@ -1,0 +1,190 @@
+.meeting {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+/* --- Left rail --- */
+.ms-rail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  position: sticky;
+  top: var(--space-4);
+}
+.ms-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.ms-preset {
+  border: 1px solid var(--line);
+  background: var(--card);
+  border-radius: var(--radius-pill);
+  padding: var(--space-1) var(--space-3);
+  color: var(--txt-dim);
+  cursor: pointer;
+  font-size: var(--fs-meta);
+  font-weight: var(--fw-emphasis);
+}
+.ms-preset.active {
+  background: var(--btn-grad);
+  color: var(--on-btn);
+  border-color: transparent;
+}
+.ms-label {
+  display: block;
+  font-size: var(--fs-meta);
+  color: var(--txt-faint);
+  margin-bottom: 4px;
+}
+.ms-people .field {
+  width: 100%;
+}
+.ms-summary {
+  text-align: center;
+}
+.ms-total {
+  color: var(--txt-dim);
+  margin-bottom: var(--space-3);
+}
+.ms-total-num {
+  font-size: 28px;
+  font-weight: var(--fw-bold);
+  color: var(--accent);
+}
+
+/* Donut */
+.donut {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+.donut-total {
+  fill: var(--txt-strong);
+}
+.donut-unit {
+  fill: var(--txt-faint);
+}
+.donut-legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-size: var(--fs-meta);
+}
+.donut-legend li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--txt-dim);
+  padding: 2px 0;
+}
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.legend-val {
+  margin-left: auto;
+  color: var(--txt-faint);
+}
+
+.ms-missing h3 {
+  font-size: var(--fs-meta);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--warn);
+  margin: 0 0 var(--space-2);
+}
+.ms-missing ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.ms-missing li {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 0;
+  font-size: var(--fs-meta);
+}
+.missing-name {
+  color: var(--txt-strong);
+}
+.missing-count {
+  color: var(--warn);
+}
+
+/* --- Right content --- */
+.ms-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.ms-content-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.font-adjust {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--fs-meta);
+  color: var(--txt-faint);
+}
+.font-adjust button {
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+  color: var(--txt-strong);
+}
+.ms-group-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+.ms-group-head h3 {
+  margin: 0;
+  color: var(--txt-strong);
+  font-size: 15px;
+}
+.ms-group-hours {
+  font-weight: var(--fw-bold);
+  color: var(--accent);
+}
+.ms-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.ms-table th,
+.ms-table td {
+  text-align: left;
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--line);
+}
+.ms-table th {
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--txt-faint);
+}
+.ms-table .num {
+  text-align: right;
+}
+
+@media (max-width: 880px) {
+  .meeting {
+    grid-template-columns: 1fr;
+  }
+  .ms-rail {
+    position: static;
+  }
+}

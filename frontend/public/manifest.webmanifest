@@ -1,0 +1,15 @@
+{
+  "name": "ASTRO — RTS Project Operations",
+  "short_name": "ASTRO",
+  "description": "ศูนย์ปฏิบัติการโครงการของ RTS: งานประจำวัน แผนงาน ความเสี่ยง งบประมาณ",
+  "lang": "th",
+  "start_url": "/my-work",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0b1026",
+  "theme_color": "#0b1026",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}

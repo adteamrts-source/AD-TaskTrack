@@ -1,0 +1,91 @@
+/* Rendered rich text + TipTap editor content (shared look). */
+
+.richtext,
+.richtext-editor .tiptap {
+  font-size: var(--fs-body);
+  line-height: 1.55;
+  color: var(--txt);
+}
+.richtext p,
+.richtext-editor .tiptap p {
+  margin: 0 0 var(--space-1);
+}
+.richtext p:last-child,
+.richtext-editor .tiptap p:last-child {
+  margin-bottom: 0;
+}
+.richtext h3,
+.richtext-editor .tiptap h3 {
+  margin: var(--space-2) 0 var(--space-1);
+  font-size: 14px;
+  font-weight: var(--fw-bold);
+  color: var(--txt-strong);
+}
+.richtext ul,
+.richtext-editor .tiptap ul {
+  margin: 0 0 var(--space-1);
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+.richtext ol,
+.richtext-editor .tiptap ol {
+  margin: 0 0 var(--space-1);
+  padding-left: 1.25rem;
+  list-style: decimal;
+}
+.richtext strong,
+.richtext-editor .tiptap strong {
+  color: var(--txt-strong);
+}
+
+/* --- Editor chrome ------------------------------------------------------ */
+.richtext-editor {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-btn);
+  background: var(--field);
+  overflow: hidden;
+}
+.richtext-editor:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+.richtext-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 6px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+}
+.richtext-tool {
+  display: grid;
+  place-items: center;
+  min-width: 30px;
+  min-height: 30px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: none;
+  color: var(--txt-dim);
+  cursor: pointer;
+}
+.richtext-tool:hover {
+  color: var(--txt-strong);
+  background: var(--field);
+}
+.richtext-tool.is-active {
+  color: var(--accent);
+  border-color: var(--line);
+  background: var(--field);
+}
+.richtext-editor .tiptap {
+  min-height: 110px;
+  padding: var(--space-2) var(--space-3);
+  outline: none;
+}
+.richtext-editor .tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  color: var(--txt-faint);
+  pointer-events: none;
+}

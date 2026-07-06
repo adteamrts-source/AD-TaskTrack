@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ASTRO — Google Login</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --txt: #1e293b;
+      --txt-strong: #0f172a;
+      --txt-dim: #475569;
+      --line: rgba(15, 23, 42, .1);
+      --accent: #0e7490;
+      --accent-2: #2563eb;
+      --btn-grad: linear-gradient(120deg, #0e7490, #1d4ed8);
+      --on-btn: #fff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: var(--bg);
+      color: var(--txt);
+      font-family: "Inter", "Noto Sans Thai", system-ui, -apple-system, sans-serif;
+      padding: 24px;
+    }
+    .card {
+      width: min(440px, 100%);
+      background: rgba(255, 255, 255, .9);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: 0 4px 8px rgba(15, 23, 42, .08);
+      padding: 28px;
+      text-align: center;
+    }
+    .brand {
+      color: var(--txt-strong);
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: .04em;
+      margin-bottom: 8px;
+    }
+    .mark { color: var(--accent); }
+    h1 {
+      color: var(--txt-strong);
+      font-size: 20px;
+      margin: 16px 0 8px;
+    }
+    p {
+      color: var(--txt-dim);
+      line-height: 1.6;
+      margin: 0 0 20px;
+    }
+    button,
+    .back-link {
+      border-radius: 12px;
+      font-family: inherit;
+      font-weight: 700;
+      min-height: 42px;
+      padding: 10px 16px;
+    }
+    button {
+      width: 100%;
+      border: 0;
+      cursor: pointer;
+      color: var(--on-btn);
+      background: var(--btn-grad);
+      box-shadow: 0 4px 16px rgba(14, 116, 144, .28);
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 12px;
+      color: var(--txt-dim);
+      text-decoration: none;
+      border: 1px solid var(--line);
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="brand"><span class="mark">✦</span> ASTRO</div>
+    {% if process == "connect" %}
+      <h1>เชื่อมต่อ Google Calendar</h1>
+      <p>ASTRO จะขอสิทธิ์อ่านปฏิทินแบบ read-only เพื่อนำประชุมมาเสนอใน Daily Task</p>
+    {% else %}
+      <h1>เข้าสู่ระบบด้วย Google</h1>
+      <p>เข้าได้เฉพาะอีเมลที่ผู้ดูแลเปิดสิทธิ์ไว้ใน ASTRO แล้วเท่านั้น</p>
+    {% endif %}
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit">ไปต่อกับ {{ provider.name|default:"Google" }}</button>
+    </form>
+    <a class="back-link" href="{{ account_logout_redirect_url|default:'/login' }}">กลับหน้าเข้าสู่ระบบ</a>
+  </main>
+</body>
+</html>

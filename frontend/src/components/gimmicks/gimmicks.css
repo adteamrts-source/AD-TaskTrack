@@ -1,0 +1,142 @@
+/* Space gimmicks — colors via tokens only (works in light & dark). */
+
+/* 1) Rocket celebration overlay (daily hits 8h) */
+.gmk-celebrate {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+.gmk-celebrate-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  animation: gmk-pop 0.4s ease;
+}
+.gmk-rocket {
+  font-size: 44px;
+  animation: gmk-liftoff 1.6s ease-in forwards;
+}
+.gmk-celebrate-text {
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--card);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-weight: 800;
+  font-size: 14px;
+  box-shadow: var(--shadow-card);
+  animation: gmk-fadeout 0.5s ease 2.2s forwards;
+}
+.gmk-spark {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  animation: gmk-spark-fly 1s ease-out forwards;
+}
+@keyframes gmk-liftoff {
+  0% { transform: translateY(40px) scale(0.8); opacity: 0; }
+  20% { transform: translateY(0) scale(1); opacity: 1; }
+  60% { transform: translateY(-40px) rotate(-2deg); }
+  100% { transform: translateY(-70vh) rotate(2deg); opacity: 0; }
+}
+@keyframes gmk-spark-fly {
+  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) scale(0.2); opacity: 0; }
+}
+@keyframes gmk-pop { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes gmk-fadeout { to { opacity: 0; } }
+
+/* 2) Verified star burst (positioned at the control) */
+.gmk-burst {
+  position: fixed;
+  z-index: 95;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}
+.gmk-burst i {
+  position: absolute;
+  font-style: normal;
+  font-size: 13px;
+  color: var(--ok);
+  animation: gmk-spark-fly 0.9s ease-out forwards;
+}
+
+/* 3) Greeting */
+.gmk-greeting {
+  color: var(--txt-faint);
+  font-size: 12px;
+}
+
+/* 5) Flyby (UFO / comet) across the starfield */
+.gmk-flyby {
+  position: absolute;
+  top: var(--fly-top, 20%);
+  left: -80px;
+  font-size: 22px;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 6px var(--shoot-c));
+  animation: gmk-flyby var(--fly-dur, 18s) linear forwards;
+}
+@keyframes gmk-flyby {
+  0% { transform: translateX(0) rotate(8deg); }
+  50% { transform: translateX(55vw) translateY(24px) rotate(-4deg); }
+  100% { transform: translateX(115vw) translateY(-10px) rotate(6deg); }
+}
+
+/* 6) Logo easter egg */
+.gmk-logo-launch {
+  animation: gmk-logo 1.6s ease-in-out;
+}
+@keyframes gmk-logo {
+  0% { transform: translateY(0) rotate(0); }
+  15% { transform: translateY(1px) rotate(-3deg); }
+  25% { transform: translateY(-2px) rotate(3deg); }
+  55% { transform: translateY(-46px) rotate(-6deg); opacity: 0; }
+  56% { transform: translateY(30px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.gmk-starburst {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+}
+.gmk-starburst span {
+  position: absolute;
+  color: var(--accent);
+  animation: gmk-twinkle-big 3s ease forwards;
+}
+@keyframes gmk-twinkle-big {
+  0% { transform: scale(0); opacity: 0; }
+  30% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(0.4); opacity: 0; }
+}
+
+/* 7) Astronaut in empty states */
+.gmk-astro-img {
+  color: var(--txt-faint);
+  margin-bottom: 6px;
+  animation: gmk-float 4s ease-in-out infinite;
+}
+@keyframes gmk-float {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-6px) rotate(2deg); }
+}
+
+/* Reduced motion: kill every gimmick animation, hide pure-decoration bits. */
+@media (prefers-reduced-motion: reduce) {
+  .gmk-rocket, .gmk-spark, .gmk-burst i, .gmk-flyby,
+  .gmk-logo-launch, .gmk-starburst span, .gmk-astro-img,
+  .gmk-celebrate-inner, .gmk-celebrate-text {
+    animation: none;
+  }
+  .gmk-flyby, .gmk-spark, .gmk-burst { display: none; }
+}

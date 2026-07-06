@@ -1,0 +1,168 @@
+.breadcrumb {
+  display: inline-block;
+  margin-bottom: var(--space-4);
+  color: var(--txt-dim);
+  text-decoration: none;
+  font-weight: var(--fw-emphasis);
+}
+.breadcrumb:hover {
+  color: var(--accent);
+}
+.pd-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+.pd-sub {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--txt-dim);
+}
+.pd-badges {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.pd-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+.pd-tabs {
+  display: flex;
+  gap: var(--space-1);
+  margin: var(--space-5) 0 var(--space-4);
+  border-bottom: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+.pd-tab {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: var(--space-3) var(--space-4);
+  color: var(--txt-dim);
+  font-weight: var(--fw-emphasis);
+  cursor: pointer;
+}
+.pd-tab:hover {
+  color: var(--txt-strong);
+}
+.pd-tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.pd-panel {
+  min-height: 160px;
+}
+.pd-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-4);
+}
+.pd-field-label {
+  font-size: var(--fs-meta);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--txt-faint);
+}
+.pd-field-value {
+  margin-top: 2px;
+  color: var(--txt-strong);
+  font-weight: var(--fw-emphasis);
+}
+.pd-edit-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--card);
+  margin-bottom: var(--space-5);
+  padding: var(--space-4);
+}
+.pd-edit-form label,
+.team-add label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.pd-edit-form label > span {
+  color: var(--txt-dim);
+  font-size: var(--fs-meta);
+  font-weight: var(--fw-bold);
+}
+.pd-edit-form .full {
+  grid-column: 1 / -1;
+}
+.pd-edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+}
+.project-team {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.team-add {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) minmax(160px, 1fr) minmax(220px, 1.4fr) 120px auto;
+  gap: var(--space-3);
+  align-items: center;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  padding: var(--space-3);
+}
+.team-row {
+  display: grid;
+  grid-template-columns: minmax(180px, 1.2fr) minmax(160px, 1fr) minmax(220px, 1.4fr) 110px auto;
+  gap: var(--space-3);
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--card);
+  padding: var(--space-3);
+}
+.team-person {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.team-person strong {
+  color: var(--txt-strong);
+  overflow-wrap: anywhere;
+}
+.team-person span {
+  color: var(--txt-faint);
+  font-size: var(--fs-meta);
+}
+.team-percent {
+  max-width: 120px;
+}
+.team-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+@media (max-width: 980px) {
+  .team-add,
+  .team-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 640px) {
+  .pd-edit-form,
+  .team-add,
+  .team-row {
+    grid-template-columns: 1fr;
+  }
+  .pd-edit-actions,
+  .team-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

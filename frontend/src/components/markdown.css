@@ -1,0 +1,238 @@
+.markdown-editor {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-btn);
+  background: var(--field);
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.markdown-editor:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 14%, transparent);
+}
+
+.markdown-toolbar {
+  display: flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 5px 6px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.markdown-tools,
+.markdown-mode {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.markdown-tool {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--txt-dim);
+  cursor: pointer;
+  transition: background 160ms ease, color 160ms ease;
+}
+
+.markdown-tool:hover,
+.markdown-tool:focus-visible {
+  background: var(--card);
+  color: var(--accent);
+  outline: none;
+}
+
+.markdown-tool:disabled {
+  color: var(--txt-faint);
+  cursor: default;
+  opacity: 0.45;
+}
+
+.markdown-tool:disabled:hover {
+  background: transparent;
+}
+
+.markdown-mode {
+  padding: 2px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--field);
+}
+
+.markdown-mode button {
+  display: inline-flex;
+  height: 28px;
+  align-items: center;
+  gap: 5px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--txt-faint);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.markdown-mode button.active {
+  background: var(--card);
+  color: var(--txt-strong);
+}
+
+.markdown-mode button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.markdown-editor textarea,
+.markdown-preview {
+  width: 100%;
+  min-height: 112px;
+  padding: 12px 14px;
+  border: 0;
+  background: transparent;
+  color: var(--txt);
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.markdown-editor textarea {
+  display: block;
+  resize: vertical;
+  outline: none;
+}
+
+.markdown-editor textarea::placeholder,
+.markdown-placeholder {
+  color: var(--txt-faint);
+  opacity: 1;
+}
+
+.markdown-preview {
+  overflow-wrap: anywhere;
+}
+
+.markdown-content {
+  max-width: 72ch;
+  color: var(--txt);
+  font-size: 14px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.markdown-content--compact {
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--txt-dim);
+}
+
+.markdown-content > :first-child {
+  margin-top: 0;
+}
+
+.markdown-content > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-content p,
+.markdown-content ul,
+.markdown-content ol,
+.markdown-content blockquote {
+  margin: 0.35em 0;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+  padding-left: 1.4em;
+}
+
+.markdown-content ul {
+  list-style: disc;
+}
+
+.markdown-content ol {
+  list-style: decimal;
+}
+
+.markdown-content a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.markdown-content blockquote {
+  padding: 0.4em 0.75em;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--panel);
+  color: var(--txt-dim);
+}
+
+.markdown-content code {
+  border-radius: 4px;
+  background: var(--panel);
+  padding: 0.1em 0.35em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.9em;
+}
+
+@media (max-width: 540px) {
+  .markdown-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .markdown-mode {
+    width: 100%;
+  }
+
+  .markdown-mode button {
+    flex: 1;
+    justify-content: center;
+    min-height: 44px;
+  }
+
+  .markdown-tool {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (max-width: 1279px) {
+  .markdown-tool {
+    width: 44px;
+    height: 44px;
+  }
+
+  .markdown-mode button {
+    min-height: 44px;
+  }
+}
+
+@media (pointer: coarse) {
+  .markdown-tool {
+    width: 44px;
+    height: 44px;
+  }
+
+  .markdown-mode button {
+    min-height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .markdown-editor,
+  .markdown-tool {
+    transition: none;
+  }
+}

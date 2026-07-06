@@ -1,0 +1,86 @@
+/* Plan tab — phase sections, compact item rows, quick-add, edit drawer. */
+
+.plan-phase-head:hover {
+  background: var(--panel);
+}
+
+.plan-item-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--line);
+}
+.plan-item-row:hover {
+  background: var(--panel);
+}
+
+.plan-item-dates {
+  width: 150px;
+  white-space: nowrap;
+}
+
+.plan-item-progress {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 110px;
+}
+.plan-progress-mini {
+  display: inline-block;
+  width: 56px;
+  height: 5px;
+  border-radius: var(--radius-pill);
+  background: var(--field);
+  overflow: hidden;
+}
+.plan-progress-mini > span {
+  display: block;
+  height: 100%;
+  background: var(--ok);
+  border-radius: var(--radius-pill);
+}
+
+.plan-quick-add {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--panel);
+}
+
+/* --- Edit drawer --------------------------------------------------------- */
+.plan-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(15, 23, 42, 0.45);
+}
+.plan-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  width: min(460px, 100vw);
+  background: var(--card);
+  border-left: 1px solid var(--line);
+  box-shadow: -12px 0 32px rgba(15, 23, 42, 0.25);
+  animation: plan-drawer-in 0.2s ease;
+}
+@keyframes plan-drawer-in {
+  from { transform: translateX(24px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .plan-drawer { animation: none; }
+}
+
+@media (max-width: 640px) {
+  .plan-item-dates { width: auto; }
+  .plan-item-progress { width: auto; }
+}

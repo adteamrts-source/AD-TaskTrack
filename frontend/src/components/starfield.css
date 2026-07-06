@@ -1,0 +1,111 @@
+/* Ambient starfield — decorative, behind all UI (UI-3). */
+.starfield {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(circle at 50% 0%, #e2e8f0 0%, #f8fafc 72%);
+  transition: background 500ms ease, opacity 500ms ease;
+}
+
+[data-theme="dark"] .starfield {
+  background:
+    radial-gradient(circle at 8% 10%, rgba(126, 34, 206, 0.18), transparent 30%),
+    radial-gradient(circle at 92% 88%, rgba(8, 145, 178, 0.2), transparent 34%),
+    radial-gradient(circle at 50% 0%, #1e1b4b 0%, #050510 52%, #000 100%);
+}
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--star);
+  opacity: 0.2;
+  box-shadow: 0 0 6px currentColor;
+  animation-name: astro-twinkle;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes astro-twinkle {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* Spawn position/size/timing come from inline styles (randomized per cycle);
+   each star runs its animation once and fades — the component re-rolls a new
+   batch of 1-3 stars every cycle. */
+.shooting-star {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(to left, transparent, var(--shoot-c));
+  border-radius: 999px;
+  /* Invisible while waiting for its random delay (fill-mode none keeps the
+     base opacity:0 during the delay — no frozen streaks before the fall). */
+  opacity: 0;
+  filter: drop-shadow(0 0 8px var(--shoot-c));
+  animation-name: astro-shooting-star;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-fill-mode: none;
+}
+
+@keyframes astro-shooting-star {
+  0% {
+    transform: translate(0, 0) rotate(-45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-500px, 500px) rotate(-45deg);
+    opacity: 0;
+  }
+}
+
+:root .starfield {
+  opacity: 0.68;
+}
+[data-theme="dark"] .starfield {
+  opacity: 1;
+}
+
+@keyframes astro-float {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-20px) rotate(2deg); }
+}
+
+@keyframes astro-pulse-glow {
+  0%, 100% { box-shadow: 0 0 10px rgba(56, 189, 248, 0.2); }
+  50% { box-shadow: 0 0 28px rgba(56, 189, 248, 0.64); }
+}
+
+@keyframes astro-shimmer {
+  0% { transform: translateX(-150%) skewX(-20deg); }
+  100% { transform: translateX(150%) skewX(-20deg); }
+}
+
+.astro-float { animation: astro-float 6s ease-in-out infinite; }
+.astro-pulse-glow { animation: astro-pulse-glow 3s ease-in-out infinite; }
+.astro-shimmer { animation: astro-shimmer 2.4s ease-in-out infinite; }
+
+/* UI-4: respect reduced motion — stop everything that moves. */
+@media (prefers-reduced-motion: reduce) {
+  .star {
+    animation: none;
+    opacity: 0.4;
+  }
+  .shooting-star {
+    display: none;
+  }
+  .astro-float,
+  .astro-pulse-glow,
+  .astro-shimmer {
+    animation: none;
+  }
+}

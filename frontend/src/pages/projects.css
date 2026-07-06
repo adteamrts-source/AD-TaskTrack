@@ -1,0 +1,136 @@
+.projects-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+.projects-head .btn-primary {
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+.field {
+  background: var(--field);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-btn);
+  padding: var(--space-2) var(--space-3);
+  color: var(--txt);
+  font-size: var(--fs-body);
+  font-family: inherit;
+}
+.field:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+.filter-bar .field:first-child {
+  flex: 1;
+  min-width: 220px;
+}
+
+.empty-projects {
+  margin-bottom: var(--space-5);
+}
+
+.empty-projects strong {
+  color: var(--txt-strong);
+}
+
+.empty-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.empty-actions .btn-primary,
+.empty-actions .secondary-action {
+  text-decoration: none;
+}
+
+.secondary-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-btn);
+  background: var(--field);
+  color: var(--txt-dim);
+  padding: var(--space-2) var(--space-4);
+  font-weight: var(--fw-bold);
+  cursor: pointer;
+}
+
+.secondary-action:hover {
+  color: var(--txt-strong);
+  border-color: var(--accent);
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-4);
+}
+.project-card {
+  display: block;
+  text-decoration: none;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-card);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.project-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(14, 116, 144, 0.42);
+}
+.project-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.project-code {
+  font-size: var(--fs-meta);
+  font-weight: var(--fw-bold);
+  color: var(--txt-faint);
+  letter-spacing: 0.05em;
+}
+.health-pill {
+  font-size: var(--fs-meta);
+  font-weight: var(--fw-bold);
+}
+.project-name {
+  margin-top: var(--space-2);
+  font-size: 15px;
+  font-weight: var(--fw-bold);
+  color: var(--txt-strong);
+}
+.project-client {
+  color: var(--txt-dim);
+  margin-top: var(--space-1);
+}
+.project-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--space-3);
+}
+.phase-tag {
+  font-size: var(--fs-meta);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--warn-bg);
+  color: var(--accent);
+  border: 1px solid var(--line);
+}
+.project-value {
+  font-size: var(--fs-meta);
+  font-weight: var(--fw-bold);
+  color: var(--accent);
+}

@@ -1,0 +1,142 @@
+.project-form-page {
+  max-width: 1180px;
+}
+
+.project-form-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.project-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.form-section-title {
+  grid-column: 1 / -1;
+  color: var(--txt-strong);
+  font-weight: var(--fw-bold);
+  margin-bottom: var(--space-1);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.form-field.full {
+  grid-column: 1 / -1;
+}
+
+.form-field > span {
+  color: var(--txt-dim);
+  font-size: var(--fs-meta);
+  font-weight: var(--fw-bold);
+}
+
+.field-error {
+  color: var(--danger);
+  font-size: var(--fs-meta);
+  font-weight: var(--fw-emphasis);
+}
+
+.form-error {
+  grid-column: 1 / -1;
+  border: 1px solid rgba(225, 29, 72, 0.24);
+  border-radius: var(--radius-btn);
+  background: rgba(225, 29, 72, 0.08);
+  color: var(--danger);
+  padding: var(--space-3);
+  font-weight: var(--fw-emphasis);
+}
+
+.form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--space-3);
+  border-top: 1px solid var(--line);
+  padding-top: var(--space-4);
+}
+
+.secondary-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-btn);
+  background: var(--field);
+  color: var(--txt-dim);
+  padding: var(--space-2) var(--space-4);
+  font-weight: var(--fw-bold);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.secondary-action:hover {
+  color: var(--txt-strong);
+  border-color: var(--accent);
+}
+
+.secondary-action:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.project-side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  position: sticky;
+  top: var(--space-4);
+}
+
+.side-action {
+  width: 100%;
+}
+
+.state-panel {
+  max-width: 560px;
+}
+
+.state-panel strong {
+  color: var(--txt-strong);
+}
+
+.quiet-link {
+  color: var(--accent);
+  font-weight: var(--fw-bold);
+  text-decoration: none;
+}
+
+@media (max-width: 960px) {
+  .project-form-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .project-side {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .project-form {
+    grid-template-columns: 1fr;
+  }
+
+  .form-actions {
+    align-items: stretch;
+    flex-direction: column-reverse;
+  }
+
+  .form-actions .btn-primary,
+  .form-actions .secondary-action {
+    width: 100%;
+  }
+}

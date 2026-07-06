@@ -1,0 +1,130 @@
+.budget-tab {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.budget-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.grand-total {
+  color: var(--txt-dim);
+  font-size: 15px;
+}
+.grand-total strong {
+  color: var(--accent);
+  font-size: 18px;
+}
+.budget-actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+.budget-add {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+  padding: var(--space-3);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+}
+.budget-add .form-error {
+  width: 100%;
+}
+.field-xs {
+  max-width: 90px;
+}
+.budget-cat {
+  padding: var(--space-3) var(--space-4);
+}
+.budget-cat-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.budget-cat-head h3 {
+  margin: 0;
+  font-size: 14px;
+  color: var(--txt-strong);
+}
+.budget-cat-right {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+.headcount {
+  font-size: var(--fs-meta);
+  color: var(--txt-dim);
+  background: var(--warn-bg);
+  padding: 1px 8px;
+  border-radius: var(--radius-pill);
+}
+.cat-total {
+  font-weight: var(--fw-bold);
+  color: var(--accent);
+}
+.budget-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--space-3);
+}
+.budget-table th,
+.budget-table td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+.budget-table th {
+  font-size: var(--fs-meta);
+  color: var(--txt-faint);
+  text-transform: uppercase;
+}
+.budget-table .num {
+  text-align: right;
+}
+.out-badge {
+  margin-left: var(--space-2);
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: var(--radius-pill);
+  background: var(--warn-bg);
+  color: var(--warn);
+}
+.budget-note {
+  color: var(--txt-faint);
+  font-size: var(--fs-meta);
+  margin-top: 2px;
+}
+.budget-row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.budget-edit-row td {
+  background: rgba(14, 116, 144, 0.04);
+}
+.budget-edit-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+.budget-edit-fields .field {
+  min-width: 120px;
+}
+.vat {
+  font-style: italic;
+}
+@media (max-width: 780px) {
+  .budget-cat {
+    overflow-x: auto;
+  }
+  .budget-table {
+    min-width: 860px;
+  }
+}

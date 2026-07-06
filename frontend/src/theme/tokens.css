@@ -1,0 +1,125 @@
+/*
+ * ASTRO Design Tokens — single source of truth (Design Tokens & UI Contract v0.2).
+ * RULE: components must use var(--token) only — never hard-code hex/px.
+ * Light = default ("cosmic dawn"); [data-theme="dark"] overrides.
+ */
+
+:root {
+  /* --- Color (Light / default) --- */
+  --bg: #f8fafc;
+  --txt: #1e293b;
+  --txt-strong: #0f172a;
+  --txt-dim: #475569;
+  --txt-faint: #64748b;
+  --panel: rgba(255, 255, 255, 0.82);
+  --card: rgba(255, 255, 255, 0.8);
+  --line: rgba(15, 23, 42, 0.1);
+  --field: #ffffff;
+  --accent: #0e7490;
+  --accent-2: #2563eb;
+  --btn-grad: linear-gradient(120deg, #0891b2, #2563eb);
+  --on-btn: #ffffff;
+  --star: #94a3b8;
+  --shoot-c: #0e7490;
+  --ok: #059669;
+  --danger: #e11d48;
+  --warn: #b45309; /* OT / missing / variance */
+  --warn-bg: rgba(245, 158, 11, 0.12);
+  --chart-neutral: #94a3b8; /* General slice */
+
+  /* Project accents (border/dot only — not text on light bg) */
+  --proj-aot: #22d3ee;
+  --proj-pttor: #a855f7;
+  --proj-mrta: #60a5fa;
+  --proj-thp: #fb923c;
+  --proj-astro: #f472b6;
+
+  /* --- Typography (§4) --- */
+  --font-sans: "IBM Plex Sans Thai", "Noto Sans Thai", system-ui, -apple-system, sans-serif;
+  --fs-heading: 22px;
+  --fs-body: 14px;
+  --fs-meta: 11px;
+  --fs-composer: 18px; /* Daily Task input — intentionally prominent */
+  --fw-normal: 400;
+  --fw-emphasis: 600;
+  --fw-bold: 700;
+
+  /* --- Spacing / radius / shadow (§5) --- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --radius-card: 16px;
+  --radius-panel: 22px;
+  --radius-btn: 12px;
+  --radius-pill: 999px;
+  --shadow-card: 0 4px 8px rgba(15, 23, 42, 0.08);
+  --shadow-btn: 0 4px 16px rgba(14, 116, 144, 0.35);
+}
+
+[data-theme="dark"] {
+  --bg: #050510;
+  --txt: #e2e8f0;
+  --txt-strong: #ffffff;
+  --txt-dim: #94a3b8;
+  --txt-faint: #64748b;
+  --panel: rgba(15, 23, 42, 0.7);
+  --card: rgba(30, 41, 59, 0.6);
+  --line: rgba(255, 255, 255, 0.08);
+  --field: rgba(15, 23, 42, 0.76);
+  --accent: #22d3ee;
+  --accent-2: #a78bfa;
+  --btn-grad: linear-gradient(120deg, #06b6d4, #2563eb);
+  --on-btn: #ffffff;
+  --star: #ffffff;
+  --shoot-c: #22d3ee;
+  --ok: #10b981;
+  --danger: #f43f5e;
+  --warn: #fbbf24;
+  --warn-bg: rgba(245, 158, 11, 0.16);
+  --chart-neutral: #64748b;
+  --shadow-btn: 0 4px 16px rgba(34, 211, 238, 0.3);
+}
+
+/* --- Base reset --- */
+* {
+  box-sizing: border-box;
+}
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  color: var(--txt);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+a {
+  color: var(--accent);
+}
+button {
+  font-family: inherit;
+}
+
+/* Primary filled button — always pairs --btn-grad with --on-btn (§3 contrast). */
+.btn-primary {
+  background: var(--btn-grad);
+  color: var(--on-btn);
+  border: none;
+  border-radius: var(--radius-btn);
+  padding: var(--space-2) var(--space-4);
+  font-weight: var(--fw-bold);
+  cursor: pointer;
+  box-shadow: var(--shadow-btn);
+}
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

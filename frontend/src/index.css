@@ -1,0 +1,210 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background: var(--bg);
+    color: var(--txt);
+    font-family: "IBM Plex Sans Thai", "Noto Sans Thai", system-ui, sans-serif;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    -webkit-tap-highlight-color: transparent;
+  }
+  input[type="checkbox"] {
+    accent-color: var(--accent);
+    width: 15px;
+    height: 15px;
+  }
+}
+
+@layer components {
+  /* Shared, consistent building blocks (TailAdmin-style, Space tokens). */
+  .ui-card {
+    @apply min-w-0 rounded-card border border-line bg-card shadow-card;
+  }
+  .ui-input {
+    @apply h-10 min-w-0 max-w-full rounded-btn border border-line bg-field px-3 text-sm text-txt
+           outline-none transition focus:border-accent;
+  }
+  .ui-label {
+    @apply mb-1 block text-2xs font-semibold uppercase tracking-wide text-txt-faint;
+  }
+  .ui-btn-primary {
+    @apply inline-flex h-10 items-center justify-center gap-2 rounded-btn px-4
+           text-sm font-bold transition disabled:cursor-not-allowed disabled:opacity-50;
+    background: var(--btn-grad);
+    color: var(--on-btn);
+  }
+  .ui-btn-ghost {
+    @apply inline-flex h-10 items-center justify-center gap-2 rounded-btn border
+           border-line bg-card px-4 text-sm font-bold text-txt-strong transition
+           hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .ui-btn-danger {
+    @apply inline-flex h-10 items-center justify-center gap-2 rounded-btn border px-4
+           text-sm font-bold text-danger transition disabled:cursor-not-allowed disabled:opacity-50;
+    border-color: rgba(225, 29, 72, 0.28);
+    background: rgba(225, 29, 72, 0.08);
+  }
+  .ui-pill {
+    @apply inline-flex items-center gap-1.5 rounded-pill px-2.5 py-1 text-2xs font-bold;
+  }
+  .ui-icon-action {
+    @apply inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-btn text-txt-faint transition
+           hover:bg-field hover:text-accent disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .responsive-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 639px) {
+  .responsive-table-wrap {
+    overflow: visible;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .responsive-table,
+  .responsive-table tbody,
+  .responsive-table tr,
+  .responsive-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .responsive-table thead {
+    display: none;
+  }
+
+  .responsive-table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .responsive-table tr {
+    overflow: hidden;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+  }
+
+  .responsive-table td {
+    display: grid;
+    grid-template-columns: minmax(88px, 34%) minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+  }
+
+  .responsive-table td:last-child {
+    border-bottom: 0;
+  }
+
+  .responsive-table td::before {
+    color: var(--txt-faint);
+    content: attr(data-label);
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .responsive-table td[data-full="true"] {
+    display: block;
+  }
+
+  .responsive-table td[data-full="true"]::before,
+  .responsive-table td:not([data-label])::before {
+    display: none;
+  }
+
+  .responsive-table--embedded tbody {
+    gap: 0;
+  }
+
+  .responsive-table--embedded tr {
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
+  }
+
+  .responsive-table td > .ui-input,
+  .responsive-table td > input,
+  .responsive-table td > select {
+    width: 100%;
+  }
+}
+
+@media (pointer: coarse) {
+  .ui-input,
+  .ui-btn-primary,
+  .ui-btn-ghost,
+  .ui-btn-danger,
+  .ui-icon-action {
+    min-height: 44px;
+  }
+
+  input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+  }
+
+  .task-status-control {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 1279px) {
+  .ui-input,
+  .ui-btn-primary,
+  .ui-btn-ghost,
+  .ui-btn-danger,
+  .ui-icon-action {
+    min-height: 44px;
+  }
+
+  input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.data-table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-inline: contain;
+}
+
+.dependency-chip-action {
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  margin: -6px -8px -6px 0;
+  border-radius: var(--radius-btn);
+}
+
+@media (pointer: coarse) {
+  .dependency-chip-action {
+    width: 40px;
+    height: 40px;
+    margin-block: -10px;
+  }
+}
+
+.plan-data-table {
+  min-width: 720px;
+}

@@ -1,0 +1,100 @@
+.page-title {
+  font-size: var(--fs-heading);
+  font-weight: var(--fw-bold);
+  color: var(--txt-strong);
+  margin: 0 0 var(--space-2);
+}
+.page-sub {
+  color: var(--txt-dim);
+  margin: 0 0 var(--space-5);
+}
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-card);
+}
+.muted {
+  color: var(--txt-faint);
+  font-size: var(--fs-meta);
+}
+.secondary-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-btn);
+  background: var(--field);
+  color: var(--txt-dim);
+  padding: var(--space-2) var(--space-4);
+  font-weight: var(--fw-bold);
+  text-decoration: none;
+  cursor: pointer;
+}
+.secondary-action:hover {
+  color: var(--txt-strong);
+  border-color: var(--accent);
+}
+.secondary-action:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.danger-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(225, 29, 72, 0.28);
+  border-radius: var(--radius-btn);
+  background: rgba(225, 29, 72, 0.08);
+  color: var(--danger);
+  cursor: pointer;
+  font-weight: var(--fw-bold);
+  padding: var(--space-2) var(--space-4);
+}
+.danger-action:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.rail-state {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-btn);
+  color: var(--txt-dim);
+  background: var(--field);
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--fs-meta);
+}
+.rail-state.danger {
+  color: var(--danger);
+  background: rgba(225, 29, 72, 0.08);
+  border-color: rgba(225, 29, 72, 0.2);
+}
+.form-error {
+  border: 1px solid rgba(225, 29, 72, 0.24);
+  border-radius: var(--radius-btn);
+  background: rgba(225, 29, 72, 0.08);
+  color: var(--danger);
+  padding: var(--space-3);
+  font-weight: var(--fw-emphasis);
+}
+.check-line {
+  align-items: center;
+  color: var(--txt-dim);
+  display: inline-flex;
+  font-size: var(--fs-meta);
+  font-weight: var(--fw-bold);
+  gap: var(--space-2);
+}
+.check-line input {
+  accent-color: var(--accent);
+}
+.status-muted {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  color: var(--txt-faint);
+  font-size: var(--fs-meta);
+  font-weight: var(--fw-bold);
+  padding: 2px var(--space-2);
+}

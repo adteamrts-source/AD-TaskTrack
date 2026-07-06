@@ -1,0 +1,49 @@
+/* สรุปงานของฉัน — per-project table + talking-point note card. */
+
+.mws-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+  .mws-layout {
+    grid-template-columns: minmax(0, 1fr) 320px;
+  }
+  /* ขยายพื้นที่ประเด็นเป็นครึ่งจอเมื่อผู้ใช้กดขยาย */
+  .mws-layout.note-wide {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  }
+  .mws-note {
+    border-left: 1px solid var(--line);
+    border-top: none;
+  }
+}
+
+/* ให้พื้นที่พิมพ์ในการ์ดประเด็นสูงขึ้น */
+.mws-note .richtext-editor .tiptap {
+  min-height: 150px;
+}
+
+.mws-table-wrap {
+  min-width: 0;
+}
+
+.mws-note {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.mws-note .richtext-editor {
+  width: 100%;
+}
+
+.mws-note-item {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-btn);
+  background: var(--card);
+  padding: var(--space-2) var(--space-3);
+}

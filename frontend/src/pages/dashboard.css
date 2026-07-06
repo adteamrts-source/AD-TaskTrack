@@ -1,0 +1,72 @@
+/* Dashboard — portfolio snapshot (stat row, filter chips, project cards). */
+
+.dash-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--space-3);
+}
+.dash-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-3) var(--space-4);
+}
+.dash-stat-num {
+  font-size: 26px;
+  font-weight: var(--fw-bold);
+  line-height: 1.1;
+}
+.dash-stat-label {
+  font-size: var(--fs-meta);
+  color: var(--txt-dim);
+}
+
+.dash-chip {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--card);
+  color: var(--txt-dim);
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--fs-meta);
+  font-weight: var(--fw-bold);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.dash-chip:hover {
+  border-color: var(--accent);
+  color: var(--txt-strong);
+}
+.dash-chip.is-active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--warn-bg);
+}
+
+.dash-progress {
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--field);
+  overflow: hidden;
+}
+.dash-progress-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.dash-member {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--field);
+  color: var(--txt);
+  padding: 1px var(--space-2);
+  font-size: var(--fs-meta);
+}
+.dash-member em {
+  font-style: normal;
+  color: var(--txt-faint);
+}

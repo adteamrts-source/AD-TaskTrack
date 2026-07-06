@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ASTRO — Google Connections</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #f8fafc;
+      color: #1e293b;
+      font-family: "Inter", "Noto Sans Thai", system-ui, -apple-system, sans-serif;
+      padding: 24px;
+    }
+    .card {
+      width: min(560px, 100%);
+      background: rgba(255, 255, 255, .92);
+      border: 1px solid rgba(15, 23, 42, .1);
+      border-radius: 16px;
+      box-shadow: 0 4px 8px rgba(15, 23, 42, .08);
+      padding: 28px;
+    }
+    .brand {
+      color: #0f172a;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: .04em;
+      margin-bottom: 18px;
+    }
+    .mark { color: #0e7490; }
+    h1 {
+      color: #0f172a;
+      font-size: 20px;
+      margin: 0 0 8px;
+    }
+    p { color: #475569; line-height: 1.6; }
+    .account-list {
+      display: grid;
+      gap: 10px;
+      margin: 18px 0;
+    }
+    label {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      border: 1px solid rgba(15, 23, 42, .1);
+      border-radius: 12px;
+      padding: 12px;
+      color: #0f172a;
+      font-weight: 700;
+    }
+    input { accent-color: #0e7490; }
+    button,
+    .link {
+      align-items: center;
+      border-radius: 12px;
+      display: inline-flex;
+      font-family: inherit;
+      font-weight: 700;
+      justify-content: center;
+      min-height: 42px;
+      padding: 10px 16px;
+      text-decoration: none;
+    }
+    button {
+      background: rgba(225, 29, 72, .08);
+      border: 1px solid rgba(225, 29, 72, .28);
+      color: #e11d48;
+      cursor: pointer;
+    }
+    .link {
+      border: 1px solid rgba(15, 23, 42, .1);
+      color: #0e7490;
+      margin-right: 8px;
+    }
+    .primary {
+      background: linear-gradient(120deg, #0e7490, #1d4ed8);
+      border-color: transparent;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="brand"><span class="mark">✦</span> ASTRO</div>
+    <h1>การเชื่อมต่อ Google</h1>
+    {% if form.accounts %}
+      <p>บัญชี Google ด้านล่างเชื่อมกับ ASTRO อยู่แล้ว หากไม่ต้องการใช้งาน สามารถถอดการเชื่อมต่อได้</p>
+      <form method="post" action="{% url 'socialaccount_connections' %}">
+        {% csrf_token %}
+        <div class="account-list">
+          {% for acc in form.fields.account.choices %}
+            {% with account=acc.0.instance.get_provider_account %}
+              <label>
+                <input type="radio" name="account" value="{{ account.account.pk }}" />
+                {{ account }}
+              </label>
+            {% endwith %}
+          {% endfor %}
+        </div>
+        <button type="submit">ถอดการเชื่อมต่อ</button>
+      </form>
+    {% else %}
+      <p>ยังไม่มีบัญชี Google ที่เชื่อมกับ ASTRO</p>
+    {% endif %}
+    <p>
+      <a class="link primary" href="/accounts/google/login/?process=connect">เชื่อมต่อ Google</a>
+      <a class="link" href="/my-work">กลับไป My Work</a>
+    </p>
+  </main>
+</body>
+</html>

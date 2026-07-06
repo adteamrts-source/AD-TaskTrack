@@ -1,0 +1,30 @@
+/* Risk register tab. */
+
+.risk-head:hover {
+  background: var(--panel);
+}
+
+.risk-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.risk-field > span {
+  font-size: var(--fs-meta);
+  font-weight: var(--fw-bold);
+  color: var(--txt-faint);
+}
+.risk-field textarea {
+  resize: vertical;
+}
+
+.risk-form .ui-card {
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+.risk-log {
+  border-top: 1px dashed var(--line);
+  padding-top: var(--space-2);
+}
