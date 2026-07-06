@@ -1,6 +1,7 @@
-# ASTRO backend — Python 3.9 / Django 4.2 LTS
+# ASTRO backend — Python 3.12 / Django 4.2 LTS
 Django>=4.2,<4.3
 djangorestframework>=3.14,<3.16
+gunicorn>=22,<24
 
 # Auth (Google login via allauth)
 django-allauth>=0.57,<0.62
