@@ -3,7 +3,7 @@ builder = "DOCKERFILE"
 dockerfilePath = "Dockerfile"
 
 [deploy]
-preDeployCommand = ["python manage.py migrate --noinput"]
+preDeployCommand = ["sh -c 'python manage.py migrate --noinput && python manage.py bootstrap_admin'"]
 healthcheckPath = "/api/health"
 healthcheckTimeout = 300
 restartPolicyType = "ON_FAILURE"
