@@ -47,6 +47,27 @@ def test_report_without_plan_items_still_renders(api, matrix, make_user, project
     assert res.content.startswith(b"%PDF-")
 
 
+def test_report_paginates_large_gantt(api, matrix, make_user, project):
+    """A Drawing cannot split itself; a large plan must be chunked by page."""
+    for index in range(40):
+        PlanItem.objects.create(
+            project=project,
+            phase=f"Phase {index}",
+            task=f"Task {index}",
+            start_date=datetime.date(2026, 6, 1) + datetime.timedelta(days=index),
+            end_date=datetime.date(2026, 6, 5) + datetime.timedelta(days=index),
+            manday=5,
+            sort_order=index,
+        )
+
+    api.force_authenticate(make_user("large-report@astro.test", role="dm"))
+    res = api.get(f"/api/projects/{project.id}/progress-report")
+
+    assert res.status_code == 200
+    assert res["Content-Type"] == "application/pdf"
+    assert res.content.startswith(b"%PDF-")
+
+
 def test_report_permission_is_projects_view(api, matrix, make_user, project):
     # dev มี Projects:view → ออกเอกสารได้ (ทุกคนที่เปิดโครงการได้)
     api.force_authenticate(make_user("dev@astro.test", role="dev"))

@@ -183,12 +183,31 @@ def _gantt_flowable(items, width, group_by_phase=False):
     return d
 
 
+def _gantt_flowables(items, width, group_by_phase=False):
+    """Return page-sized Gantt drawings instead of one unsplittable drawing.
+
+    ReportLab ``Drawing`` objects cannot split across pages.  Client projects
+    can contain dozens of plan items, so a single drawing eventually exceeds
+    the document frame and raises ``LayoutError``.  Grouped reports may add a
+    phase header for every item; the smaller chunk size keeps that worst case
+    comfortably inside a landscape A4 page.
+    """
+    dated = [item for item in items if item.start_date and item.end_date]
+    chunk_size = 10 if group_by_phase else 20
+    return [
+        _gantt_flowable(dated[index:index + chunk_size], width, group_by_phase)
+        for index in range(0, len(dated), chunk_size)
+    ]
+
+
 def plan_to_pdf(project) -> HttpResponse:
     from reportlab.lib import colors
     from reportlab.lib.pagesizes import A4, landscape
     from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
     from reportlab.lib.units import mm
     from reportlab.platypus import (
+        KeepTogether,
+        PageBreak,
         Paragraph,
         SimpleDocTemplate,
         Spacer,
@@ -243,11 +262,18 @@ def plan_to_pdf(project) -> HttpResponse:
     story.append(table)
     story.append(Spacer(1, 14))
 
-    gantt = _gantt_flowable(items, width=landscape(A4)[0] - 60)
-    if gantt is not None:
-        story.append(Paragraph("Gantt", ParagraphStyle("g", fontName="Sarabun-Bold", fontSize=12)))
-        story.append(Spacer(1, 4))
-        story.append(gantt)
+    # SimpleDocTemplate frames have 6pt padding on each side in addition to
+    # the explicit page margins, hence ``doc.width - 12``.
+    gantts = _gantt_flowables(items, width=doc.width - 12)
+    for index, gantt in enumerate(gantts):
+        if index:
+            story.append(PageBreak())
+        heading = "Gantt" if index == 0 else "Gantt (ต่อ)"
+        story.append(KeepTogether([
+            Paragraph(heading, ParagraphStyle("g", fontName="Sarabun-Bold", fontSize=12)),
+            Spacer(1, 4),
+            gantt,
+        ]))
 
     doc.build(story)
     return resp
@@ -278,7 +304,15 @@ def progress_report_pdf(project) -> HttpResponse:
     from reportlab.lib.pagesizes import A4, landscape
     from reportlab.lib.styles import ParagraphStyle
     from reportlab.lib.units import mm
-    from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
+    from reportlab.platypus import (
+        KeepTogether,
+        PageBreak,
+        Paragraph,
+        SimpleDocTemplate,
+        Spacer,
+        Table,
+        TableStyle,
+    )
 
     from apps.projects.models import HealthStatus
 
@@ -375,9 +409,12 @@ def progress_report_pdf(project) -> HttpResponse:
         ]))
         story.extend([Paragraph("ความคืบหน้ารายเฟส", section), Spacer(1, 4), table, Spacer(1, 14)])
 
-    gantt = _gantt_flowable(items, width=landscape(A4)[0] - 60, group_by_phase=True)
-    if gantt is not None:
-        story.extend([Paragraph("แผนงาน (Gantt)", section), Spacer(1, 4), gantt])
+    gantts = _gantt_flowables(items, width=doc.width - 12, group_by_phase=True)
+    for index, gantt in enumerate(gantts):
+        if index:
+            story.append(PageBreak())
+        heading = "แผนงาน (Gantt)" if index == 0 else "แผนงาน (Gantt) — ต่อ"
+        story.append(KeepTogether([Paragraph(heading, section), Spacer(1, 4), gantt]))
 
     doc.build(story)
     return resp
