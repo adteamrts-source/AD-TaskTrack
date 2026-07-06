@@ -36,4 +36,4 @@ RUN addgroup --system astro \
 
 USER astro
 
-CMD ["sh", "-c", "exec gunicorn astro.wsgi:application --bind 0.0.0.0:${PORT:-8000} --workers ${WEB_CONCURRENCY:-2} --timeout 120 --access-logfile - --error-logfile -"]
+CMD ["sh", "-c", "exec daphne -b 0.0.0.0 -p ${PORT:-8080} astro.asgi:application"]
