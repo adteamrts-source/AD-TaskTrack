@@ -2,7 +2,7 @@
 import pytest
 
 from apps.clients.models import Client
-from apps.projects.models import Project
+from apps.projects.models import Project, ProjectTeamMember
 
 
 pytestmark = pytest.mark.django_db
@@ -79,6 +79,22 @@ def test_value_thb_hidden_from_dev_visible_to_dm(api, matrix, make_user, client_
     api.force_authenticate(make_user("dm@astro.test", role="dm"))
     dm_row = api.get("/api/projects").json()["results"][0]
     assert dm_row["value_thb"] == "500000.00"
+
+
+def test_project_list_mine_only_returns_po_or_team_projects(api, matrix, make_user, client_obj):
+    dev = make_user("dev-mine@astro.test", role="dev")
+    po_project = Project.objects.create(project_name="PO Project", client=client_obj, po_user=dev)
+    team_project = Project.objects.create(project_name="Team Project", client=client_obj)
+    other_project = Project.objects.create(project_name="Other Project", client=client_obj)
+    ProjectTeamMember.objects.create(project=team_project, user=dev)
+
+    api.force_authenticate(dev)
+    body = api.get("/api/projects?mine=1").json()
+
+    ids = {row["id"] for row in body["results"]}
+    assert po_project.id in ids
+    assert team_project.id in ids
+    assert other_project.id not in ids
 
 
 def test_project_code_unique(api, matrix, make_user, client_obj):

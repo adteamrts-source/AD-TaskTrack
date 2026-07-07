@@ -4,6 +4,7 @@ import re
 from rest_framework import serializers
 
 from apps.projects.models import Project
+from apps.projects.selectors import projects_for_user
 from apps.settings_app.services import is_working_day
 from apps.tasks.models import Task
 
@@ -34,6 +35,15 @@ def _validate_hours(value):
     return value
 
 
+class DailyProjectScopeMixin:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        request = self.context.get("request")
+        self.fields["project_id"].queryset = (
+            projects_for_user(request.user) if request else Project.objects.none()
+        )
+
+
 class DailyEntrySerializer(serializers.ModelSerializer):
     project_name = serializers.CharField(source="project.project_name", read_only=True, default="")
     task_title = serializers.CharField(source="task.title", read_only=True, default="")
@@ -60,7 +70,7 @@ class DailyEntrySerializer(serializers.ModelSerializer):
         read_only_fields = fields
 
 
-class DailyCreateSerializer(serializers.Serializer):
+class DailyCreateSerializer(DailyProjectScopeMixin, serializers.Serializer):
     work_date = serializers.DateField()
     source = serializers.ChoiceField(choices=["manual", "meeting", "plan"], default="manual")
     title = serializers.CharField(max_length=500, required=False, allow_blank=True, default="")
@@ -69,7 +79,11 @@ class DailyCreateSerializer(serializers.Serializer):
         queryset=Task.objects.all(), source="task", required=False, allow_null=True
     )
     project_id = serializers.PrimaryKeyRelatedField(
-        queryset=Project.objects.all(), source="project", required=False, allow_null=True
+        queryset=Project.objects.none(),
+        source="project",
+        required=False,
+        allow_null=True,
+        error_messages={"does_not_exist": "เลือกได้เฉพาะโครงการที่คุณอยู่ในทีม"},
     )
     hours = serializers.DecimalField(max_digits=4, decimal_places=1, default=Decimal("1.0"))
     is_ot = serializers.BooleanField(required=False, allow_null=True, default=None)
@@ -125,12 +139,16 @@ class DailyCreateSerializer(serializers.Serializer):
         )
 
 
-class DailyUpdateSerializer(serializers.Serializer):
+class DailyUpdateSerializer(DailyProjectScopeMixin, serializers.Serializer):
     """PATCH — re-tag project / adjust hours / OT (FN-MW-04/05). Tagging a
     project never creates a Task (PRD §6.8)."""
 
     project_id = serializers.PrimaryKeyRelatedField(
-        queryset=Project.objects.all(), source="project", required=False, allow_null=True
+        queryset=Project.objects.none(),
+        source="project",
+        required=False,
+        allow_null=True,
+        error_messages={"does_not_exist": "เลือกได้เฉพาะโครงการที่คุณอยู่ในทีม"},
     )
     hours = serializers.DecimalField(max_digits=4, decimal_places=1, required=False)
     is_ot = serializers.BooleanField(required=False)

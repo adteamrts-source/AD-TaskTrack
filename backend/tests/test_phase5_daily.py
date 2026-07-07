@@ -5,7 +5,7 @@ import pytest
 
 from apps.clients.models import Client
 from apps.daily.models import DailyEntry
-from apps.projects.models import Project
+from apps.projects.models import Project, ProjectTeamMember
 from apps.settings_app.models import Holiday, SystemSetting
 from apps.tasks.models import Task
 
@@ -85,6 +85,7 @@ def test_manual_entry_ot_default_on_weekend(api, matrix, dev):
 
 # --- type B (project tag, no status) ---------------------------------------
 def test_project_entry_type_b(api, matrix, dev, project):
+    ProjectTeamMember.objects.create(project=project, user=dev)
     api.force_authenticate(dev)
     res = api.post(
         "/api/daily",
@@ -95,6 +96,18 @@ def test_project_entry_type_b(api, matrix, dev, project):
     assert body["project"] == project.id
     assert body["task"] is None
     assert body["status_snapshot"] is None
+
+
+def test_project_entry_rejects_project_outside_user_team(api, matrix, dev, project):
+    api.force_authenticate(dev)
+    res = api.post(
+        "/api/daily",
+        {"work_date": MONDAY, "source": "manual", "title": "ประชุมโครงการ", "project_id": project.id, "hours": "1.0"},
+        format="json",
+    )
+
+    assert res.status_code == 400
+    assert "project_id" in res.json()
 
 
 # --- type A (task) keeps a status snapshot ---------------------------------
@@ -131,6 +144,7 @@ def test_hours_must_be_half_step(api, matrix, dev):
 
 # --- re-tag project (FN-MW-04) does NOT create a Task ----------------------
 def test_retag_project_no_task(api, matrix, dev, project):
+    ProjectTeamMember.objects.create(project=project, user=dev)
     entry = DailyEntry.objects.create(user=dev, work_date=datetime.date(2026, 6, 1), title="t", hours=1)
     api.force_authenticate(dev)
     before = Task.objects.count()
@@ -138,6 +152,15 @@ def test_retag_project_no_task(api, matrix, dev, project):
     assert res.status_code == 200
     assert res.json()["project"] == project.id
     assert Task.objects.count() == before  # no Task created
+
+
+def test_retag_rejects_project_outside_user_team(api, matrix, dev, project):
+    entry = DailyEntry.objects.create(user=dev, work_date=datetime.date(2026, 6, 1), title="t", hours=1)
+    api.force_authenticate(dev)
+    res = api.patch(f"/api/daily/{entry.id}", {"project_id": project.id}, format="json")
+
+    assert res.status_code == 400
+    assert "project_id" in res.json()
 
 
 def test_cannot_retag_task_entry(api, matrix, dev, project):

@@ -66,7 +66,7 @@ class DailyDetailView(APIView):
 
     def patch(self, request, pk):
         entry = self._own(request, pk)
-        ser = DailyUpdateSerializer(entry, data=request.data, partial=True)
+        ser = DailyUpdateSerializer(entry, data=request.data, partial=True, context={"request": request})
         ser.is_valid(raise_exception=True)
         ser.save()
         return Response(DailyEntrySerializer(entry).data)

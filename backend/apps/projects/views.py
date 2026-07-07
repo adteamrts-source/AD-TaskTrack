@@ -14,6 +14,7 @@ from apps.common.permissions import HasModulePermission
 from apps.common.roles import can_see_money
 
 from .models import HealthStatus, Project, ProjectPhase, ProjectTeamMember, Risk, RiskLog
+from .selectors import user_project_scope
 from .serializers import (
     ProjectSerializer,
     ProjectTeamMemberSerializer,
@@ -48,6 +49,8 @@ class ProjectListCreateView(generics.ListCreateAPIView):
             qs = qs.filter(project_phase=phase)
         if health:
             qs = qs.filter(health_status=health)
+        if p.get("mine") in ("1", "true", "me"):
+            qs = qs.filter(user_project_scope(self.request.user)).distinct()
         return qs
 
 
